@@ -1,0 +1,23 @@
+---
+# METADATA
+# title: Constraint to allow selected repos
+# description: >-
+#   Utilises ConstraintTemplate to limit allow repositories for images in OpenShift
+#   See template here - https://raw.githubusercontent.com/open-policy-agent/gatekeeper-library/0d74f529c8c2ba509cf077518d0f72c0c48440f9/library/general/allowedrepos/template.yaml
+#   Sample Constraint - https://raw.githubusercontent.com/open-policy-agent/gatekeeper-library/0d74f529c8c2ba509cf077518d0f72c0c48440f9/library/general/allowedrepos/samples/repo-must-be-openpolicyagent/constraint.yaml
+#
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sAllowedRepos
+metadata:
+  name: repo-is-openpolicyagent
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces:
+      - "default"
+  parameters:
+    repos:
+      - "quay.io/"
+      - "registry.redhat.io/"

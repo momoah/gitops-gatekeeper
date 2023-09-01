@@ -1,0 +1,28 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+patches: 
+  - patch: |-
+      - op: replace
+        path: /spec/policies/0
+        value: prod-policy-allowed-repos
+    target:
+      kind: PolicySet
+  - patch: |-
+      - op: replace
+        path: /subjects/0/name
+        value: prod-policies-gatekeeper
+      - op: replace
+        path: /placementRef/name
+        value: prod-placement-policies-gatekeeper
+    target:
+      kind: PlacementBinding
+
+namespace: prod-gatekeeper
+namePrefix: prod-
+
+resources: 
+  - ../../constraints
+
+patchesStrategicMerge:
+  - placementrule.yaml

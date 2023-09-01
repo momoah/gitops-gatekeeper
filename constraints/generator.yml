@@ -1,0 +1,39 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: policy-acm-gatekeeper
+placementBindingDefaults:
+  name: binding-policy-acm-gatekeeper
+policyDefaults:
+  categories:
+    - CM Configuration Management
+  controls: 
+    - CM-2 Baseline Configuration
+  standards:
+    - NIST SP 800-53
+  namespace: acm-gatekeeper
+  policySets:
+    - policies-gatekeeper
+
+policies:
+- name: policy-allowed-repos
+  disabled: false
+  manifests:
+    - path: allowedrepos.yaml
+  remediationAction: "enforce"
+
+policySets:
+  - name: policies-gatekeeper
+    description: Gatekeeper policies
+    placement:
+      clusterSelector:
+        matchExpressions:
+          - key: vendor
+            operator: In
+            values:
+             - "OpenShift"
+          - key: "name"
+            operator: "In"
+            values:
+             - "local-cluster"
+      

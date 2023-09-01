@@ -1,0 +1,22 @@
+---
+# METADATA
+# title: Constraint to disallow specified tags
+# description: >-
+#   Utilises ConstraintTemplate that requires container images to have an image tag different from the ones in the specified list.
+#   See template here - https://raw.githubusercontent.com/open-policy-agent/gatekeeper-library/0d74f529c8c2ba509cf077518d0f72c0c48440f9/library/general/disallowedtags/template.yaml
+#   Sample Constraint - https://raw.githubusercontent.com/open-policy-agent/gatekeeper-library/0d74f529c8c2ba509cf077518d0f72c0c48440f9/library/general/disallowedtags/samples/container-image-must-not-have-latest-tag/constraint.yaml
+#
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sDisallowedTags
+metadata:
+  name: container-image-must-not-have-latest-tag
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces:
+      - "default"
+  parameters:
+    tags: ["latest"]
+    exemptImages: ["quay.io/ansible/ansible-builder:latest", "registry.redhat.io/ansible-automation-platform-22/ee-supported-rhel8:latest"]
