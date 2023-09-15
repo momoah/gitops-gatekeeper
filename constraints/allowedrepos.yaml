@@ -21,3 +21,9 @@ spec:
     repos:
       - "quay.io/"
       - "registry.redhat.io/"
+      - "registry.k8s.io/"
+      - "registry.access.redhat.com/"
+      - "registry.connect.redhat.com/"
+      - "docker.io/"
+      - "gcr.io/"
+      - "ghcr.io/"
