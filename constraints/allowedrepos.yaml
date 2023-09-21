@@ -26,4 +26,4 @@ spec:
       - "registry.connect.redhat.com/"
       - "docker.io/"
       - "gcr.io/"
-      - "ghcr.io/"
+#      - "ghcr.io/"
